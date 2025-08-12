@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Recipients(models.Model):
+class Recipient(models.Model):
 
     email = models.EmailField(verbose_name="Почта", help_text="Введите почту")
     full_name = models.CharField(max_length=200, verbose_name="ФИО", help_text="Введите ФИО")
