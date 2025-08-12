@@ -2,7 +2,7 @@ from django.db import models
 
 from message.models import Message
 from recipients.models import Recipient
-from user.models import User
+from users.models import User
 
 
 class Mailing(models.Model):

@@ -1,17 +1,17 @@
 from django.urls import path
 
 from recipients.apps import RecipientsConfig
-from recipients.views import (RecipientsCreateView, RecipientsDeleteView,
+from recipients.views import (RecipientCreateView, RecipientDeleteView,
                               RecipientsListView)
 
 app_name = RecipientsConfig.name
 
 urlpatterns = [
     path("", RecipientsListView.as_view(), name="recipients"),
-    path("create_recipient", RecipientsCreateView.as_view(), name="create_recipient"),
+    path("create_recipient", RecipientCreateView.as_view(), name="create_recipient"),
     path(
         "delete_recipient/<int:pk>",
-        RecipientsDeleteView.as_view(),
+        RecipientDeleteView.as_view(),
         name="delete_recipient",
     ),
 ]

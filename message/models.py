@@ -1,6 +1,6 @@
 from django.db import models
 
-from user.models import User
+from users.models import User
 
 
 class Message(models.Model):
@@ -24,4 +24,3 @@ class Message(models.Model):
             ("can_update_message", "Обновление сообщения"),
             ("can_create_message", "Добавление сообщения"),
         ]
-        
