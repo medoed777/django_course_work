@@ -17,7 +17,7 @@ class MailingListView(LoginRequiredMixin, ListView):
         user = self.request.user
         if user.is_superuser or user.has_perm("mailing.can_all_view_mailing"):
             return Mailing.objects.all()
-        return Mailing.objects.filter(owner=user.pk)
+        return Mailing.objects.filter(owner=user)
 
 
 class MailingCreateView(LoginRequiredMixin, CreateView):
@@ -26,14 +26,15 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
     template_name = "create_mailing.html"
     success_url = reverse_lazy("mailing:mailing")
 
-    def form_valid(self, form):
-        mailing: Mailing = form.save(commit=False)
+    def check_permissions(self):
         user = self.request.user
-        mailing.owner = user
-
         if not (user.is_superuser or user.has_perm("mailing.can_create_mailing")):
             raise PermissionDenied
 
+    def form_valid(self, form):
+        self.check_permissions()
+        mailing: Mailing = form.save(commit=False)
+        mailing.owner = self.request.user
         mailing.save()
         form.save_m2m()
         start_sending_message(mailing)
@@ -46,18 +47,20 @@ class MailingUpdateView(LoginRequiredMixin, UpdateView):
     template_name = "update_mailing.html"
     success_url = reverse_lazy("mailing:mailing")
 
-    def form_valid(self, form):
-        mailing = form.save(commit=False)
+    def check_permissions(self, mailing):
         user = self.request.user
-
-        if (
+        if not (
             user.is_superuser
             or user.has_perm("mailing.can_update_mailing")
-            or mailing.owner == self.request.user
+            or mailing.owner == user
         ):
-            mailing.save()
-            return super().form_valid(form)
-        raise PermissionDenied
+            raise PermissionDenied
+
+    def form_valid(self, form):
+        mailing = form.save(commit=False)
+        self.check_permissions(mailing)
+        mailing.save()
+        return super().form_valid(form)
 
 
 
@@ -66,8 +69,11 @@ class MailingDeleteView(LoginRequiredMixin, DeleteView):
     template_name = "delete_mailing.html"
     success_url = reverse_lazy("mailing:mailing")
 
-    def delete(self, request, *args, **kwargs):
+    def check_permissions(self):
         user = self.request.user
-        if user.is_superuser or user.has_perm("mailing.can_delete_mailing"):
-            return super().delete(request, *args, **kwargs)
-        raise PermissionDenied
+        if not (user.is_superuser or user.has_perm("mailing.can_delete_mailing")):
+            raise PermissionDenied
+
+    def delete(self, request, *args, **kwargs):
+        self.check_permissions()
+        return super().delete(request, *args, **kwargs)
