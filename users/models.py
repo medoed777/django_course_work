@@ -8,10 +8,10 @@ class User(AbstractUser):
     email = models.EmailField(
         unique=True, verbose_name="Email", help_text="Введите почту"
     )
-    avatar = models.ImageField(upload_to="avatar/", verbose_name="Аватар")
+    avatar = models.ImageField(upload_to="avatar/", blank=True, null=True, verbose_name="Аватар")
     phone_number = models.CharField(max_length=30, blank=True, null=True, verbose_name="Номер телефона")
-    country = models.CharField(max_length=100, verbose_name="страна")
-    token = models.TextField(verbose_name="Токен")
+    country = models.CharField(max_length=100, blank=True, null=True, verbose_name="страна")
+    token = models.TextField(blank=True, null=True, verbose_name="Токен")
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

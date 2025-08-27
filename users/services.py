@@ -14,8 +14,7 @@ def send_activation_email(host, user, token):
     user.save()
 
     mail_subject = "Активация вашего аккаунта"
-    message = f"http://{host}/user/token/" + token
-    print(message)
+    message = f"http://{host}/users/token/" + token
     send_mail(
         subject=mail_subject,
         message=message,

@@ -19,4 +19,4 @@ def main_page(request: HttpRequest) -> HttpResponse:
         context["count_mailing"] = Mailing.objects.count()
         context["count_recipients"] = Recipient.objects.count()
 
-    return render(request, template_name="main.html", context=context)
+    return render(request, template_name="base.html", context=context)
