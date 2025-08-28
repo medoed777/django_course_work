@@ -4,6 +4,6 @@ register = template.Library()
 
 
 @register.filter()
-def sp_fullname(fullname):
+def split_fullname(fullname):
     first_name, *last_name = str(fullname).split(" ")
     return f"{first_name[0].upper()}"

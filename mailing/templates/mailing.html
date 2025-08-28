@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header align-items-center">
+        {% if perms.mailing.can_create_mailing %}
+        <div class="navbar-nav-right d-flex align-items-center justify-content-end">
+            <a class="btn btn-primary text-white cursor-pointer" id="btn_create_mailing">Добавить рассылку</a>
+        </div>
+        {% endif %}
+        <h5 class="card-action-title mb-5">Рассылки(2)</h5>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Номер рассылки</th>
+                <th>Тема</th>
+                <th>Сообщение</th>
+                <th>Получатели</th>
+                <th>Статус</th>
+                <th>Действие</th>
+            </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            {% for mailing in object_list %}
+            <tr>
+                <td>
+                    {{ mailing.pk }}
+                </td>
+                <td>{{ mailing.message.theme }}</td>
+                <td>
+                    {{ mailing.message.body }}
+                </td>
+                <td>
+                    {{ mailing.recipients.all|length }}
+                </td>
+                <td>
+                    {% if mailing.status_ending == "created" or mailing.status_ending == "started" %}
+                        <span class="badge bg-label-primary me-1">{{ mailing.get_status_ending_display }}</span>
+                    {% else %}
+                        <span class="badge bg-label-success me-1">{{ mailing.get_status_ending_display }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if perms.mailing.can_delete_mailing or perms.mailing.can_update_mailing or mailing.owner.id == user.id %}
+                    <div class="dropdown">
+                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                            <i class="icon-base bx bx-dots-vertical-rounded"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            {% if perms.mailing.can_update_mailing or mailing.owner.id == user.id %}
+                            <a class="dropdown-item btn_update_mailing cursor-pointer" id_mailing="{{ mailing.pk }}"><i
+                                    class="icon-base bx bx-edit-alt me-1"></i> Редактировать</a>
+                            {% endif %}
+                            {% if perms.mailing.can_delete_mailing or mailing.owner.id == user.id %}
+                            <a class="dropdown-item btn_delete_mailing cursor-pointer" id_mailing="{{ mailing.pk }}"><i
+                                    class="icon-base bx bx-trash me-1"></i> Удалить</a>
+                             {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}

@@ -34,7 +34,7 @@ class RecipientCreateView(LoginRequiredMixin, CreateView):
         raise PermissionDenied
 
 
-class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class RecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Recipient
     form_class = RecipientForm
     template_name = "recipients/recipient_update.html"
@@ -46,7 +46,7 @@ class ProductUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 class RecipientDetailView(LoginRequiredMixin, DetailView):
     model = Recipient
-    template_name = "recipients/recipient.html"
+    template_name = "detail_recipient.html"
     context_object_name = "recipient"
 
 

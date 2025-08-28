@@ -3,37 +3,37 @@
 {% block content %}
 {% load split_fullname %}
 <div class="card">
-<div class="card-header align-items-center">
-    <div class="navbar-nav-right d-flex align-items-center justify-content-end">
-       <a href="{% url 'recipients:create_recipient' %}" class="btn btn-primary text-white cursor-pointer" id="btn_create_recipient" >Добавить получателя</a>
+    <div class="card-header align-items-center">
+        <div class="navbar-nav-right d-flex align-items-center justify-content-end">
+            <a href="{% url 'recipients:create_recipient' %}" class="btn btn-primary text-white cursor-pointer" id="btn_create_recipient">Добавить получателя</a>
+        </div>
+        <h5 class="card-action-title mb-5">Получатели({{ object_list|length }})</h5>
     </div>
-    <h5 class="card-action-title mb-5">Получатели({{ object_list|length }})</h5>
-</div>
-<div class="card-body">
-    <ul class="list-unstyled mb-0">
-        {% for recipient in object_list %}
-        <li class="mb-4">
-            <div class="d-flex align-items-center">
+    <div class="card-body">
+        <ul class="list-unstyled mb-0">
+            {% for recipient in object_list %}
+            <li class="mb-4">
                 <div class="d-flex align-items-center">
-                   <div class="avatar avatar-sm me-3">
-                       <span class="avatar-initial rounded-circle bg-label-primary">{{ recipient.full_name|sp_fullname }}</span>
-                   </div>
-                    <div class="me-2">
-                        <h6 class="mb-0">{{ recipient.full_name }}</h6>
-                        <small>{{ recipient.email }}</small>
+                    <div class="d-flex align-items-center">
+                        <div class="avatar avatar-sm me-3">
+                            <span class="avatar-initial rounded-circle bg-label-primary">{{ recipient.full_name|sp_fullname }}</span>
+                        </div>
+                        <div class="me-2">
+                            <h6 class="mb-0">{{ recipient.full_name }}</h6>
+                            <small>{{ recipient.email }}</small>
+                        </div>
+                    </div>
+                    <div class="ms-auto">
+                        <a href="{% url 'recipients:detail_recipient' recipient.pk %}" class="btn btn-info me-2">Просмотреть</a>
+                        {% if perms.message.can_delete_recipient or recipient.owner.id == user.id %}
+                        <a href="{% url 'recipients:delete_recipient' recipient.pk %}" class="btn btn-danger">Удалить</a>
+                        {% endif %}
                     </div>
                 </div>
-                {% if perms.message.can_delete_recipient or recipient.owner.id == user.id %}
-                <div class="ms-auto">
-                    <a class="btn btn-label-primary btn-icon btn_delete_recipient" id="{{ recipient.pk }}">
-                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="red"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M18 6l-12 12" /><path d="M6 6l12 12" /></svg>
-                    </a>
-                </div>
-                {% endif %}
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
-</div>
+
 {% endblock content %}
