@@ -7,8 +7,10 @@ from django.views.generic.edit import CreateView
 from mailing.forms import MailingForm, MailingUpdateForm
 from mailing.models import Mailing
 from mailing.services import start_sending_message
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
     template_name = "mailing.html"

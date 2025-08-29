@@ -5,8 +5,10 @@ from django.views.generic import CreateView, DeleteView, ListView, UpdateView, D
 
 from message.forms import MessageForm
 from message.models import Message
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(cache_page(60 *15 ), name="dispatch")
 class MessageListView(LoginRequiredMixin, ListView):
     model = Message
     template_name = "message.html"

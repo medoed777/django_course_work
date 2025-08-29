@@ -5,8 +5,10 @@ from django.views.generic import CreateView, DeleteView, ListView, DetailView, U
 
 from recipients.forms import RecipientForm
 from recipients.models import Recipient
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
 
-
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class RecipientsListView(LoginRequiredMixin, ListView):
     model = Recipient
     template_name = "recipients.html"
@@ -44,6 +46,8 @@ class RecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
         obj = self.get_object()
         return user == obj.owner or user.has_perm("catalog.can_unpublish_product")
 
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class RecipientDetailView(LoginRequiredMixin, DetailView):
     model = Recipient
     template_name = "detail_recipient.html"
