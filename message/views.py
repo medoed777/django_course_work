@@ -1,14 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView, DetailView
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from message.forms import MessageForm
 from message.models import Message
-from django.views.decorators.cache import cache_page
-from django.utils.decorators import method_decorator
 
-@method_decorator(cache_page(60 *15 ), name="dispatch")
+
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MessageListView(LoginRequiredMixin, ListView):
     model = Message
     template_name = "message.html"
@@ -34,6 +36,7 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
             message.save()
             return super().form_valid(form)
         raise PermissionDenied
+
 
 class MessageUpdateView(LoginRequiredMixin, UpdateView):
     model = Message

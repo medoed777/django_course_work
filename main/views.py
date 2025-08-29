@@ -9,9 +9,15 @@ from recipients.models import Recipient
 def main_page(request: HttpRequest) -> HttpResponse:
     user = request.user
     context = {
-        "count_message": Message.objects.filter(owner=user).count() if user.is_authenticated else 0,
-        "count_mailing": Mailing.objects.filter(owner=user).count() if user.is_authenticated else 0,
-        "count_recipients": Recipient.objects.filter(owner=user).count() if user.is_authenticated else 0,
+        "count_message": (
+            Message.objects.filter(owner=user).count() if user.is_authenticated else 0
+        ),
+        "count_mailing": (
+            Mailing.objects.filter(owner=user).count() if user.is_authenticated else 0
+        ),
+        "count_recipients": (
+            Recipient.objects.filter(owner=user).count() if user.is_authenticated else 0
+        ),
     }
 
     if user.is_authenticated and user.is_superuser:

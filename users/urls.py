@@ -1,10 +1,10 @@
+from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path
-from django.conf.urls.static import static
 
 from config import settings
 from users.apps import UsersConfig
-from users.views import (UserCreateView, email_verification)
+from users.views import UserCreateView, email_verification
 
 app_name = UsersConfig.name
 
@@ -16,4 +16,3 @@ urlpatterns = [
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-

@@ -6,8 +6,12 @@ from users.models import User
 class Recipient(models.Model):
 
     email = models.EmailField(verbose_name="Почта", help_text="Введите почту")
-    full_name = models.CharField(max_length=200, verbose_name="ФИО", help_text="Введите ФИО")
-    comments = models.TextField(verbose_name="Комментарий", help_text="Введите комментарий")
+    full_name = models.CharField(
+        max_length=200, verbose_name="ФИО", help_text="Введите ФИО"
+    )
+    comments = models.TextField(
+        verbose_name="Комментарий", help_text="Введите комментарий"
+    )
     owner = models.ForeignKey(User, verbose_name="Владелец", on_delete=models.CASCADE)
 
     class Meta:
@@ -22,4 +26,3 @@ class Recipient(models.Model):
 
     def __str__(self):
         return self.full_name
-

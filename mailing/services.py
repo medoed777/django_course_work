@@ -12,7 +12,7 @@ def start_sending_message(mailing: Mailing):
     mailing.status_ending = Mailing.STATUS_STARTED
     mailing.save()
     for recipient in mailing.recipients.all():
-        if not mailing.status_ending == 'completed':
+        if not mailing.status_ending == "completed":
             message: Message = mailing.message
             try:
                 send_mail(

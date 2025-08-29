@@ -7,23 +7,43 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Message',
+            name="Message",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('theme', models.CharField(max_length=150, verbose_name='Тема письма')),
-                ('body', models.TextField(verbose_name='Тело письма')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата обновления')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("theme", models.CharField(max_length=150, verbose_name="Тема письма")),
+                ("body", models.TextField(verbose_name="Тело письма")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата обновления"),
+                ),
             ],
             options={
-                'verbose_name': 'Сообщение',
-                'verbose_name_plural': 'Сообщения',
-                'permissions': [('can_all_view_message', 'Просмотр всех сообщений'), ('can_delete_message', 'Удаление сообщения'), ('can_update_message', 'Обновление сообщения'), ('can_create_message', 'Добавление сообщения')],
+                "verbose_name": "Сообщение",
+                "verbose_name_plural": "Сообщения",
+                "permissions": [
+                    ("can_all_view_message", "Просмотр всех сообщений"),
+                    ("can_delete_message", "Удаление сообщения"),
+                    ("can_update_message", "Обновление сообщения"),
+                    ("can_create_message", "Добавление сообщения"),
+                ],
             },
         ),
     ]

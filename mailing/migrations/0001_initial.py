@@ -7,23 +7,55 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Mailing',
+            name="Mailing",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('status_ending', models.CharField(choices=[('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена')], default='created', max_length=20, verbose_name='Статус рассылки')),
-                ('status_mail', models.TextField(verbose_name='Текстовый статус')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата обновления')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "status_ending",
+                    models.CharField(
+                        choices=[
+                            ("created", "Создана"),
+                            ("started", "Запущена"),
+                            ("completed", "Завершена"),
+                        ],
+                        default="created",
+                        max_length=20,
+                        verbose_name="Статус рассылки",
+                    ),
+                ),
+                ("status_mail", models.TextField(verbose_name="Текстовый статус")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата обновления"),
+                ),
             ],
             options={
-                'verbose_name': 'Рассылка',
-                'verbose_name_plural': 'Рассылки',
-                'permissions': [('can_all_view_mailing', 'Просмотр всех рассылок'), ('can_delete_mailing', 'Удаление рассылки'), ('can_update_mailing', 'Обновление рассылки'), ('can_create_mailing', 'Добавление рассылки')],
+                "verbose_name": "Рассылка",
+                "verbose_name_plural": "Рассылки",
+                "permissions": [
+                    ("can_all_view_mailing", "Просмотр всех рассылок"),
+                    ("can_delete_mailing", "Удаление рассылки"),
+                    ("can_update_mailing", "Обновление рассылки"),
+                    ("can_create_mailing", "Добавление рассылки"),
+                ],
             },
         ),
     ]
