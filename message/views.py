@@ -52,10 +52,10 @@ class MessageUpdateView(LoginRequiredMixin, UpdateView):
         raise PermissionDenied
 
 
-class RecipientDetailView(LoginRequiredMixin, DetailView):
+class MessageDetailView(LoginRequiredMixin, DetailView):
     model = Message
     template_name = "message/message.html"
-    context_object_name = "recipient"
+    context_object_name = "message"
 
 
 class MessageDeleteView(LoginRequiredMixin, DeleteView):

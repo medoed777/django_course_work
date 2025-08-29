@@ -5,5 +5,7 @@ register = template.Library()
 
 @register.filter()
 def split_fullname(fullname):
-    first_name, *last_name = str(fullname).split(" ")
-    return f"{first_name[0].upper()}"
+    parts = str(fullname).split(" ")
+    last_name = parts[0]
+    initials = [part[0].upper() + '.' for part in parts[1:]]
+    return f"{last_name} {' '.join(initials)}"

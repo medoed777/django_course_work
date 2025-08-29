@@ -2,12 +2,12 @@
 
 {% block content %}
 {% load split_fullname %}
-<div class="card">
+<div class="card ">
     <div class="card-header align-items-center">
         <div class="navbar-nav-right d-flex align-items-center justify-content-end">
-            <a href="{% url 'recipients:create_recipient' %}" class="btn btn-primary text-white cursor-pointer" id="btn_create_recipient">Добавить получателя</a>
+            <a href="{% url 'recipients:create_recipient' %}" class="btn btn-primary text-white cursor-pointer ">Добавить получателя</a>
         </div>
-        <h5 class="card-action-title mb-5">Получатели({{ object_list|length }})</h5>
+        <h5 class="card-action-title mb-5 text-center" >Получатели({{ object_list|length }})</h5>
     </div>
     <div class="card-body">
         <ul class="list-unstyled mb-0">
@@ -16,7 +16,7 @@
                 <div class="d-flex align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="avatar avatar-sm me-3">
-                            <span class="avatar-initial rounded-circle bg-label-primary">{{ recipient.full_name|sp_fullname }}</span>
+                            <span class="avatar-initial rounded-circle bg-label-primary">{{ recipient.full_name|split_fullname }}</span>
                         </div>
                         <div class="me-2">
                             <h6 class="mb-0">{{ recipient.full_name }}</h6>

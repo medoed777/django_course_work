@@ -4,7 +4,7 @@
         {% if user.is_authenticated %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'recipients:recipients' %}">Получатели</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing' %}">Рассылки</a>
-        <a class="p-2 btn btn-outline-primary" href="#">Сообщения</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'message:message' %}">Сообщения</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
         {% else %}
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:login' %}">Войти</a>
