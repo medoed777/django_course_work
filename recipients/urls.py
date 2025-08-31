@@ -1,8 +1,12 @@
 from django.urls import path
 
 from recipients.apps import RecipientsConfig
-from recipients.views import (RecipientCreateView, RecipientDeleteView,
-                              RecipientDetailView, RecipientsListView)
+from recipients.views import (
+    RecipientCreateView,
+    RecipientDeleteView,
+    RecipientDetailView,
+    RecipientsListView,
+)
 
 app_name = RecipientsConfig.name
 

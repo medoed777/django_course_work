@@ -1,8 +1,12 @@
 from django.urls import path
 
 from message.apps import MessageConfig
-from message.views import (MessageCreateView, MessageDeleteView,
-                           MessageListView, MessageUpdateView)
+from message.views import (
+    MessageCreateView,
+    MessageDeleteView,
+    MessageListView,
+    MessageUpdateView,
+)
 
 app_name = MessageConfig.name
 
