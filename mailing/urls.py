@@ -1,8 +1,12 @@
 from django.urls import path
 
 from mailing.apps import MailingConfig
-from mailing.views import (MailingCreateView, MailingDeleteView,
-                           MailingListView, MailingUpdateView)
+from mailing.views import (
+    MailingCreateView,
+    MailingDeleteView,
+    MailingListView,
+    MailingUpdateView,
+)
 
 app_name = MailingConfig.name
 
