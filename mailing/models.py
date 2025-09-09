@@ -43,3 +43,16 @@ class Mailing(models.Model):
             ("can_update_mailing", "Обновление рассылки"),
             ("can_create_mailing", "Добавление рассылки"),
         ]
+
+
+class MailingAttempt(models.Model):
+    attempt_time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=[
+        ('successful', 'Успешно'),
+        ('unsuccessful', 'Не успешно'),
+    ])
+    server_response = models.TextField()
+    mailing = models.ForeignKey(Mailing, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Попытка {self.attempt_time} | Статус: {self.status}"

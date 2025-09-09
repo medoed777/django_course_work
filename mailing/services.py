@@ -1,30 +1,48 @@
 import datetime
 
+from django.conf import settings
 from django.core.mail import send_mail
 
-from config.settings import EMAIL_HOST_USER
-from mailing.models import Mailing
-from message.models import Message
+from mailing.models import Mailing, MailingAttempt
 
 
-def start_sending_message(mailing: Mailing):
+
+def send_mailing(mailing_id):
+    mailing = Mailing.objects.get(id=mailing_id)
+
     report = []
+
     mailing.status_ending = Mailing.STATUS_STARTED
     mailing.save()
+
     for recipient in mailing.recipients.all():
-        if not mailing.status_ending == "completed":
-            message: Message = mailing.message
-            try:
-                send_mail(
-                    subject=message.theme,
-                    message=message.body,
-                    recipient_list=[recipient.email],
-                    from_email=EMAIL_HOST_USER,
-                )
-            except Exception as err:
-                report.append(
-                    f"{datetime.datetime.now()} - {recipient.email} ошибка - {err}"
-                )
+        try:
+            send_mail(
+                subject=mailing.message.theme,
+                message=mailing.message.body,
+                recipient_list=[recipient.email],
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                fail_silently=False,
+            )
+
+            MailingAttempt.objects.create(
+                mailing=mailing,
+                status='successful',
+                server_response='Электронное письмо успешно отправлено',
+                recipient=recipient.email,
+            )
+
+        except Exception as e:
+            MailingAttempt.objects.create(
+                mailing=mailing,
+                status='unsuccessful',
+                server_response=str(e),
+                recipient=recipient.email,
+            )
+            report.append(
+                f"{datetime.datetime.now()} - {recipient.email} ошибка - {str(e)}"
+            )
+
     mailing.status_ending = Mailing.STATUS_COMPLETED
     mailing.status_mail = "\n".join(report)
     mailing.save()

@@ -1,14 +1,16 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.cache import cache_page
 from django.views.generic import DeleteView, ListView, UpdateView
 from django.views.generic.edit import CreateView
 
 from mailing.forms import MailingForm, MailingUpdateForm
 from mailing.models import Mailing
-from mailing.services import start_sending_message
+from mailing.services import send_mailing
 
 
 @method_decorator(cache_page(60 * 15), name="dispatch")
@@ -40,7 +42,7 @@ class MailingCreateView(LoginRequiredMixin, CreateView):
         mailing.owner = self.request.user
         mailing.save()
         form.save_m2m()
-        start_sending_message(mailing)
+        send_mailing(mailing)
         return super().form_valid(form)
 
 
@@ -79,3 +81,10 @@ class MailingDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         self.check_permissions()
         return super().delete(request, *args, **kwargs)
+
+
+class SendMailingView(View):
+    def post(self, request, mailing_id):
+        mailing = get_object_or_404(Mailing, id=mailing_id)
+        send_mailing(mailing.id)
+        return redirect('mailing_list')
