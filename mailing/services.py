@@ -7,9 +7,7 @@ from mailing.models import Mailing, MailingAttempt
 
 
 
-def send_mailing(mailing_id):
-    mailing = Mailing.objects.get(id=mailing_id)
-
+def send_mailing(mailing):
     report = []
 
     mailing.status_ending = Mailing.STATUS_STARTED
@@ -29,7 +27,6 @@ def send_mailing(mailing_id):
                 mailing=mailing,
                 status='successful',
                 server_response='Электронное письмо успешно отправлено',
-                recipient=recipient.email,
             )
 
         except Exception as e:
@@ -37,7 +34,6 @@ def send_mailing(mailing_id):
                 mailing=mailing,
                 status='unsuccessful',
                 server_response=str(e),
-                recipient=recipient.email,
             )
             report.append(
                 f"{datetime.datetime.now()} - {recipient.email} ошибка - {str(e)}"

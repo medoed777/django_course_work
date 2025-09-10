@@ -11,9 +11,9 @@ class MailingForm(ModelForm):
         widget=forms.SelectMultiple(attrs={"class": "form-control"}),
     )
 
-    def clean_recipients(self):
-        recipients = self.cleaned_data["recipients"]
-        return recipients
+    # def clean_recipients(self):
+    #     recipients = self.cleaned_data["recipients"]
+    #     return recipients
 
     def __init__(self, *args, **kwargs):
         super(MailingForm, self).__init__(*args, **kwargs)

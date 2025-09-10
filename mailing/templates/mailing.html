@@ -39,11 +39,11 @@
                 </td>
                 <td>
                     {% if mailing.status_ending == "created" %}
-                        <span class="badge bg-label-primary me-1">{{ mailing.get_status_ending_display }}</span>
+                        <span class="badge bg-primary">{{ mailing.get_status_ending_display }}</span>
                     {% elif mailing.status_ending == "started" %}
-                        <span class="badge bg-label-warning me-1">{{ mailing.get_status_ending_display }}</span>
+                        <span class="badge bg-warning">{{ mailing.get_status_ending_display }}</span>
                     {% elif mailing.status_ending == "completed" %}
-                        <span class="badge bg-label-success me-1">{{ mailing.get_status_ending_display }}</span>
+                        <span class="badge bg-success">{{ mailing.get_status_ending_display }}</span>
                     {% endif %}
                 </td>
                 <td>
