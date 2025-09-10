@@ -13,7 +13,7 @@ from mailing.models import Mailing, MailingAttempt
 from mailing.services import send_mailing
 
 
-# @method_decorator(cache_page(60 * 15), name="dispatch")
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MailingListView(LoginRequiredMixin, ListView):
     model = Mailing
     template_name = "mailing.html"

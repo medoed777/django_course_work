@@ -15,7 +15,7 @@ from message.forms import MessageForm
 from message.models import Message
 
 
-# @method_decorator(cache_page(60 * 15), name="dispatch")
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class MessageListView(LoginRequiredMixin, ListView):
     model = Message
     template_name = "message.html"

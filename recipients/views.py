@@ -15,7 +15,7 @@ from recipients.forms import RecipientForm
 from recipients.models import Recipient
 
 
-# @method_decorator(cache_page(60 * 15), name="dispatch")
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class RecipientsListView(LoginRequiredMixin, ListView):
     model = Recipient
     template_name = "recipients.html"
@@ -54,7 +54,7 @@ class RecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
         return user == obj.owner or user.has_perm("catalog.can_unpublish_product")
 
 
-# @method_decorator(cache_page(60 * 15), name="dispatch")
+@method_decorator(cache_page(60 * 15), name="dispatch")
 class RecipientDetailView(LoginRequiredMixin, DetailView):
     model = Recipient
     template_name = "detail_recipient.html"
