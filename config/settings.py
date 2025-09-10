@@ -164,7 +164,7 @@ EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-CACHE_ENABLED = False
+CACHE_ENABLED = True if os.getenv("CACHE_ENABLED") == "True" else False
 if CACHE_ENABLED:
     CACHES = {
         "default": {

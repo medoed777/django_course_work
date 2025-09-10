@@ -6,6 +6,7 @@ from recipients.views import (
     RecipientDeleteView,
     RecipientDetailView,
     RecipientsListView,
+    RecipientUpdateView,
 )
 
 app_name = RecipientsConfig.name
@@ -22,5 +23,10 @@ urlpatterns = [
         "detail_recipient/<int:pk>/",
         RecipientDetailView.as_view(),
         name="detail_recipient",
+    ),
+    path(
+        "update_recipient/<int:pk>/",
+        RecipientUpdateView.as_view(),
+        name="update_recipient",
     ),
 ]

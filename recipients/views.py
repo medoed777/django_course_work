@@ -46,7 +46,7 @@ class RecipientCreateView(LoginRequiredMixin, CreateView):
 class RecipientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Recipient
     form_class = RecipientForm
-    template_name = "recipients/recipient_update.html"
+    template_name = "update_recipient.html"
 
     def has_permission(self):
         user = self.request.user

@@ -11,6 +11,7 @@
         <p><strong>Комментарий:</strong> {{ recipient.comments }}</p>
     </div>
     <div class="justify-content-center d-flex">
+        <a href="{% url 'recipients:update_recipient' recipient.pk %}" class="btn btn-primary text-white cursor-pointer ">Редактировать получателя</a>
         <a class="btn btn-primary text-white cursor-pointer mx-2" href="{% url 'recipients:recipients' %}">Закрыть</a>
     </div>
 </div>
