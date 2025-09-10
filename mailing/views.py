@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -9,7 +9,7 @@ from django.views.generic import DeleteView, ListView, UpdateView
 from django.views.generic.edit import CreateView
 
 from mailing.forms import MailingForm, MailingUpdateForm
-from mailing.models import Mailing
+from mailing.models import Mailing, MailingAttempt
 from mailing.services import send_mailing
 
 
@@ -88,3 +88,18 @@ class SendMailingView(View):
         mailing = get_object_or_404(Mailing, id=mailing_id)
         send_mailing(mailing.id)
         return redirect('mailing_list')
+
+
+def mailing_attempts_list(request):
+    attempts = MailingAttempt.objects.all()
+
+    successful_attempts_count = attempts.filter(status='successful').count()
+    unsuccessful_attempts_count = attempts.filter(status='unsuccessful').count()
+
+    context = {
+        'attempts': attempts,
+        'successful_count': successful_attempts_count,
+        'unsuccessful_count': unsuccessful_attempts_count,
+    }
+
+    return render(request, 'mailing_attempts_list.html', context)

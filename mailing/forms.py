@@ -13,7 +13,7 @@ class MailingForm(ModelForm):
 
     def clean_recipients(self):
         recipients = self.cleaned_data["recipients"]
-        return [r.id for r in recipients]
+        return recipients
 
     def __init__(self, *args, **kwargs):
         super(MailingForm, self).__init__(*args, **kwargs)
@@ -23,7 +23,7 @@ class MailingForm(ModelForm):
 
     class Meta:
         model = Mailing
-        fields = "message", "recipients"
+        fields = ["message", "recipients"]
 
 
 class MailingUpdateForm(ModelForm):
@@ -44,4 +44,4 @@ class MailingUpdateForm(ModelForm):
 
     class Meta:
         model = Mailing
-        fields = "message", "recipients", "status_ending"
+        fields = ["message", "recipients", "status_ending"]

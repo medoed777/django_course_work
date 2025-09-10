@@ -5,6 +5,7 @@
         <a class="p-2 btn btn-outline-primary" href="{% url 'main:base' %}">Главная</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'recipients:recipients' %}">Получатели</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing' %}">Рассылки</a>
+        <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_attempts_list' %}">Статус рассылок</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'message:message' %}">Сообщения</a>
         <a class="p-2 btn btn-outline-primary" href="{% url 'users:logout' %}">Выйти</a>
         {% else %}
