@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django.forms import ModelForm
 
 from users.models import User
 
@@ -22,3 +23,27 @@ class UserRegisterForm(UserCreationForm):
         self.fields["password2"].widget.attrs.update(
             {"class": "form-control", "placeholder": "Повторите пароль"}
         )
+
+class UserProfileForm(ModelForm):
+
+    class Meta:
+        model = User
+        fields = ['email', 'avatar', 'phone_number', 'country']
+
+        def __init__(self, *args, **kwargs):
+            super(UserProfileForm, self).__init__(*args, **kwargs)
+
+            self.fields["email"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Введите email"}
+            )
+
+            self.fields["avatar"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Введите пароль"}
+            )
+
+            self.fields["phone_number"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Повторите пароль"}
+            )
+            self.fields["country"].widget.attrs.update(
+                {"class": "form-control", "placeholder": "Повторите пароль"}
+            )
